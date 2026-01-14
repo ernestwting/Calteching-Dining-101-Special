@@ -1,6 +1,0 @@
-discord.py
-playwright
-pytz
-pytesseract
-Pillow
-aiohttp
