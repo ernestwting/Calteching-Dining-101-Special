@@ -11,6 +11,6 @@ services:
       - key: DISCORD_TOKEN
         sync: false # Set this in the Render Dashboard -> Environment tab
       - key: CHANNEL_ID
-        value: "REPLACE_WITH_YOUR_CHANNEL_ID"
+        value: "1460709908847788085"
       - key: PORT
         value: "8080"
