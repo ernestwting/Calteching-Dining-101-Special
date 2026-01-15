@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: canva-dining-bot
+    runtime: docker
+    plan: free
+    region: oregon
+    dockerContext: .
+    dockerfilePath: Dockerfile
+    healthCheckPath: /
+    envVars:
+      - key: DISCORD_TOKEN
+        sync: false # Set this in the Render Dashboard -> Environment tab
+      - key: CHANNEL_ID
+        value: "REPLACE_WITH_YOUR_CHANNEL_ID"
+      - key: PORT
+        value: "8080"
