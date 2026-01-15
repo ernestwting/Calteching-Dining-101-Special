@@ -98,7 +98,7 @@ class MenuCog(commands.Cog):
 
             file = discord.File(screenshot_path, filename="menu.png")
             embed = discord.Embed(
-                title="🍽 Dining Hall Special",
+                title="🍽 Cooking 101: Dinner Special",
                 color=discord.Color.blue(),
                 description=f"Automated update for **{datetime.datetime.now(TIMEZONE).strftime('%A, %b %d')}**",
                 timestamp=datetime.datetime.now()
