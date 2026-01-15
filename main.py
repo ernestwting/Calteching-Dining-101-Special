@@ -105,7 +105,7 @@ class MenuCog(commands.Cog):
             )
             embed.add_field(name="**Featured Menu**", value=dish_name[:256], inline=False)
             embed.set_image(url="attachment://menu.png")
-            embed.set_footer(text="Render Infrastructure • Senior Bot Architect")
+            embed.set_footer(text="Render Infrastructure • UptimeRobot")
 
             if status_msg: await status_msg.delete()
             
