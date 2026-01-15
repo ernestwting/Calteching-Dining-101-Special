@@ -24,6 +24,35 @@ TIMEZONE = pytz.timezone("America/Los_Angeles")
 TARGET_HOUR = 17  # 5:00 PM
 # ---------------------
 
+def autocrop_image(image_path):
+    """
+    Finds the bounding box of non-black content and crops the image.
+    This removes the letterboxing (black bars) added by Canva's viewer.
+    """
+    try:
+        img = Image.open(image_path).convert("RGB")
+        # Find the bounding box of the non-black parts
+        # getbbox() works on the alpha channel or non-zero pixels. 
+        # Since the bars are pure black (0,0,0), it finds the poster.
+        bbox = img.getbbox()
+        if bbox:
+            # Add a tiny 5px margin to avoid cutting edges
+            left, top, right, bottom = bbox
+            width, height = img.size
+            bbox_with_margin = (
+                max(0, left - 2), 
+                max(0, top - 2), 
+                min(width, right + 2), 
+                min(height, bottom - 2)
+            )
+            cropped = img.crop(bbox_with_margin)
+            cropped.save(image_path)
+            print(f"✂️ [Image] Cropped from {img.size} to {cropped.size}")
+            return True
+    except Exception as e:
+        print(f"⚠️ [Image] Cropping failed: {e}")
+    return False
+
 class MenuCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -84,7 +113,10 @@ class MenuCog(commands.Cog):
                 await browser.close()
                 print("📸 [Browser] Screenshot captured successfully.")
 
-            print("🔍 [OCR] Analyzing screenshot...")
+            # CROP THE IMAGE
+            autocrop_image(screenshot_path)
+
+            print("🔍 [OCR] Analyzing text...")
             img = Image.open(screenshot_path)
             text = pytesseract.image_to_string(img)
             
